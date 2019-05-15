@@ -1,0 +1,54 @@
+<%- include('header') %>
+<div class="container">
+    <div class="ui grid">
+        <div class="four wide column">
+            <%-include('components/left_content')%>
+        </div>
+        <div class="twelve wide column">
+            <table class="ui single line table" id="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>内容</th>
+                        <th>朝代</th>
+                        <th>作者</th>
+                        <th>修改</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                </tbody>
+            </table>
+            <div class="add_form" id="add_form">
+                <div class="ui attached message">
+                    <div class="header">
+                        新增诗句
+                    </div>
+                    <p>填写下面的信息，新增一个诗句</p>
+                </div>
+                <form class="ui form segment">
+                    <div class="field" id="author_field">
+                        <label>作者</label>
+                        <input placeholder="作者名称，2-10个字之间，仅支持中文" name="author" id='author' type="text" maxlength="10" autocomplete="off">
+                    </div>
+                    <div class="field" id="verse_field">
+                        <label>诗句</label>
+                        <input placeholder="2-20个字之间，仅支持数字和中文" name="verse" id="verse" type="text" maxlength="20" autocomplete="off">
+                    </div>
+                    <div class="field" id="dynasty_field">
+                        <label>朝代</label>
+                        <input placeholder="朝代,仅支持中文" name="dynasty" id="dynasty" type="text" autocomplete="off">
+                    </div>
+                    <button class="ui primary button" id="save" type="submit">
+                        保存
+                    </button>
+                    <button class="ui button" id="cancel">
+                        丢弃
+                    </button>
+                    <div class="ui error message" id="error_msg"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('components/pagination')%>
+<%- include('footer') %>
