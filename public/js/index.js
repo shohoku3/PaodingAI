@@ -63,6 +63,7 @@ function showPage(psize) {
             pagination.insertBefore(item, pagination.childNodes[i + 2])
         }
     }
+    return totalPage
 }
 //GoPage
 function goPage(pnow, psize) {
@@ -104,18 +105,24 @@ if (!jsonData) {
     alert('当前localstorage 已被清空,将自动添加')
     jsonData = [
         { "author": "闻天祥", "verse": "山河破碎风抛絮", "dynasty": "宋" },
-        { "author": "闻天祥", "verse": "皇恐滩头说皇恐", "dynasty": "宋" }, 
-        { "author": "闻天祥", "verse": "余囚北庭", "dynasty": "宋" }, 
-        { "author": "闻天祥", "verse": "污下而幽暗", "dynasty": "宋" }, 
-        { "author": "白居易", "verse": "汉皇重色思倾国", "dynasty": "唐" }, 
+        { "author": "闻天祥", "verse": "皇恐滩头说皇恐", "dynasty": "宋" },
+        { "author": "闻天祥", "verse": "余囚北庭", "dynasty": "宋" },
+        { "author": "闻天祥", "verse": "污下而幽暗", "dynasty": "宋" },
+        { "author": "白居易", "verse": "汉皇重色思倾国", "dynasty": "唐" },
         { "author": "白居易", "verse": "御宇多年求不得", "dynasty": "唐" },
-        { "author": "白居易", "verse": "养在深闺人未识", "dynasty": "唐" }]
+        { "author": "白居易", "verse": "养在深闺人未识", "dynasty": "唐" },
+        { "author": "闻天祥", "verse": "余囚北庭", "dynasty": "宋" },
+        { "author": "闻天祥", "verse": "山河破碎风抛絮", "dynasty": "宋" },
+        { "author": "白居易", "verse": "汉皇重色思倾国", "dynasty": "唐" },
+        { "author": "闻天祥", "verse": "污下而幽暗", "dynasty": "宋" },
+        { "author": "闻天祥", "verse": "山河破碎风抛絮", "dynasty": "宋" },
+    ]
     obj = JSON.stringify(jsonData);
     localStorage.setItem("data", obj);
     window.location.reload()
 } else {
     // 初始化
-    showPage(5)
+    var totalPage = showPage(5)
     goPage(1, 5)
     modItem()
     delItem()
@@ -139,11 +146,19 @@ function PgUp() {
     var btn_pgup = document.getElementById('btn_pgup')
     btn_pgup.onclick = function() {
         var currentPg = document.getElementsByClassName('active item')[1].innerHTML
-        document.getElementsByClassName('active item')[1].className = 'item'
-        var tbody = document.getElementById('tbody').innerHTML = ''
-        goPage(Number(currentPg) + 1, 5)
-        modItem()
-        delItem()
+        if (Number(currentPg) + 1 <= totalPage) {
+            document.getElementsByClassName('active item')[1].className = 'item'
+            var tbody = document.getElementById('tbody').innerHTML = ''
+            goPage(Number(currentPg) + 1, 5)
+            modItem()
+            delItem()
+        } else {
+            document.getElementsByClassName('active item')[1].className = 'item'
+            var tbody = document.getElementById('tbody').innerHTML = ''
+            goPage(Number(currentPg), 5)
+            modItem()
+            delItem()
+        }
     }
 }
 
@@ -151,11 +166,19 @@ function PgDn() {
     var btn_pgdn = document.getElementById('btn_pgdn')
     btn_pgdn.onclick = function() {
         var currentPg = document.getElementsByClassName('active item')[1].innerHTML
-        document.getElementsByClassName('active item')[1].className = 'item'
-        var tbody = document.getElementById('tbody').innerHTML = ''
-        goPage(Number(currentPg) - 1, 5)
-        modItem()
-        delItem()
+        if (Number(currentPg) - 1 >= 1) {
+            document.getElementsByClassName('active item')[1].className = 'item'
+            var tbody = document.getElementById('tbody').innerHTML = ''
+            goPage(Number(currentPg) - 1, 5)
+            modItem()
+            delItem()
+        } else {
+            document.getElementsByClassName('active item')[1].className = 'item'
+            var tbody = document.getElementById('tbody').innerHTML = ''
+            goPage(Number(currentPg), 5)
+            modItem()
+            delItem()
+        }
     }
 }
 //添加条目
